@@ -8,12 +8,16 @@ import "./index.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 /* ================= GOOGLE AUTH END ================= */
 
+// ✅ GitHub Pages route restore fix
+const redirect = sessionStorage.redirect;
+delete sessionStorage.redirect;
+
+if (redirect && redirect !== location.href) {
+  history.replaceState(null, "", redirect);
+}
+
 createRoot(document.getElementById("root")!).render(
-  /* ================= GOOGLE AUTH WRAPPER START =================
-     If auth crashes, comment this whole wrapper block
-  ============================================================= */
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
     <App />
   </GoogleOAuthProvider>
-  /* ================= GOOGLE AUTH WRAPPER END ================= */
 );
