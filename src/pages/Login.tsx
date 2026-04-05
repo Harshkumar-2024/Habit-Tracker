@@ -4,12 +4,15 @@ import { Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Login() {
+  const API_URL = import.meta.env.PROD
+  ? "https://habit-tracker-1-58t6.onrender.com"
+  : "http://localhost:5000";
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     try {
       if (!credentialResponse.credential) return;
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/google",
+        `${API_URL}/api/auth/google`,
         {
           token: credentialResponse.credential,
         }
